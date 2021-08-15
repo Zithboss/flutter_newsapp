@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(title: 'Thailand News App'),
     );
   }
 }
@@ -59,7 +59,34 @@ class _MyHomePageState extends State<MyHomePage> {
             return ListView.builder(
               itemCount: data.length,
               itemBuilder: (context, index) {
-                return Text("${data[index].title}");
+                return Container(
+                  child: Column(
+                    children: [
+                      Card(
+                        semanticContainer: true,
+                        clipBehavior: Clip.antiAliasWithSaveLayer,
+                        child: Image.network(
+                          '${data[index].urlToImage}',
+                          fit: BoxFit.fill,
+                        ),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
+                        elevation: 5,
+                        margin: EdgeInsets.all(10),
+                      ),
+                      Text(
+                        "${data[index].title}",
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 24),
+                      ),
+                      Text(
+                        "${data[index].description}",
+                        style: TextStyle(fontSize: 18),
+                      )
+                    ],
+                  ),
+                );
               },
             );
           } else {
@@ -72,9 +99,9 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 class NewsData {
-  final String title;
-  final String description;
-  final String url;
-  final String urlToImage;
+  final String? title;
+  final String? description;
+  final String? url;
+  final String? urlToImage;
   NewsData(this.title, this.description, this.url, this.urlToImage);
 }
